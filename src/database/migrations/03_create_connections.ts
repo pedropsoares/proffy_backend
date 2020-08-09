@@ -1,6 +1,6 @@
 import Knex from 'knex';
 
-export const up = (knex: Knex) => knex.schema.createTable('connection', (table) => {
+export const up = (knex: Knex) => knex.schema.createTable('connections', (table) => {
   table.increments('id').primary();
 
   table.integer('user_id')
@@ -11,8 +11,8 @@ export const up = (knex: Knex) => knex.schema.createTable('connection', (table) 
     .onDelete('CASCADE');
 
   table.timestamp('created_at')
-    .defaultTo('now')
+    .defaultTo(knex.raw('CURRENT_TIMESTAMP'))
     .notNullable();
 });
 
-export const down = (knex: Knex) => knex.schema.dropSchema('connection');
+export const down = (knex: Knex) => knex.schema.dropSchema('connections');
