@@ -5,5 +5,6 @@ const routes = express.Router();
 const classesController = new ClassesController();
 
 routes.post('/classes', classesController.create);
+routes.get('/classes', classesController.show);
 
 export default routes;

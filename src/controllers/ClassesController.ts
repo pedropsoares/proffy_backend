@@ -10,6 +10,29 @@ interface ScheduleItem {
 }
 
 export default class ClassesController {
+  public show = async (req:Request, res: Response) => {
+    const filters = req.query;
+
+    const subject = filters.subject as String;
+    const week_day = filters.week_day as String;
+    const time = filters.time as String;
+
+    if (!filters.week_day || !filters.subject || !filters.time) {
+      return res.status(400).json({
+        error: 'Missing filter to search classes',
+      });
+    }
+
+    const timeInMinutes = convertHourToMinutes(time);
+
+    const classes = await db('classes')
+      .where('classes.subject', '=', subject)
+      .join('users', 'classes.user_id', '=', 'users.id')
+      .select(['classes.*', 'users.*']);
+
+    return res.json(classes);
+  }
+
   public create = async (req:Request, res:Response) => {
     const {
       name,
