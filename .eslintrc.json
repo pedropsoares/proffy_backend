@@ -18,6 +18,7 @@
     "no-unused-vars": "off",
     "import/no-unresolved": "off",
     "import/extensions": "off",
-    "camelcase": "off"
+    "camelcase": "off",
+    "func-names": "off"
   }
 }
