@@ -4,7 +4,11 @@ import db from '../database/connection';
 
 export default class ClassesController {
   public index = async (req: Request, res: Response) => {
+    const totalconnections = await db('connections').count('* as total');
 
+    const { total } = totalconnections[0];
+
+    return res.json({ total });
   }
 
   public create = async (req: Request, res: Response) => {
